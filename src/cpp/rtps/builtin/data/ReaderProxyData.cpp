@@ -927,6 +927,17 @@ bool ReaderProxyData::readFromCDRMessage(
                         break;
                     }
 #endif // if HAVE_SECURITY
+                    case fastdds::dds::PID_DATASHARING_INFO:
+                    {
+                        if (!fastdds::dds::QosPoliciesSerializer<DataSharingInfo>::read_from_cdr_message(
+                                    m_qos.data_sharing_info, msg, plength))
+                        {
+                        logError(RTPS_READER_PROXY_DATA,
+                                "Received with error.");
+                            return false;
+                        }
+                        break;
+                    }
                     default:
                     {
                         break;
